@@ -1,0 +1,8 @@
+{
+  "dpi": 203,
+  "width": {"value": 4, "unit": "in"},
+  "height": {"value": 6, "unit": "in"},
+  "x": {"value": 30, "unit": "dots"},
+  "y": {"value": 30, "unit": "dots"},
+  "font_size": {"value": 40, "unit": "dots"}
+}

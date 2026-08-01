@@ -1,0 +1,10 @@
+config.env
+node_modules/
+*.log
+.ipynb_checkpoints/
+config.env
+node_modules/
+*.log
+config.env
+node_modules/
+*.log
