@@ -11,6 +11,22 @@ UNITS_PER_INCH = {
     "cm": 1 / 2.54,
 }
 
+MEDIA_TYPE_MAP = {
+    "gap": "^MNY",       # web/gap sensing
+    "continuous": "^MNN",  # continuous media, no gaps
+    "mark": "^MNM",      # black mark sensing
+}
+
+PRINT_MODE_MAP = {
+    "tear_off": "^MMT",
+    "peel_off": "^MMP",
+}
+
+ORIENTATION_MAP = {
+    "normal": "^PON",
+    "inverted": "^POI",
+}
+
 def to_dots(field, dpi):
     value = field["value"]
     unit = field["unit"].lower()
@@ -31,15 +47,37 @@ def load_template(path="label_template.json"):
         "x": to_dots(tpl["x"], dpi),
         "y": to_dots(tpl["y"], dpi),
         "font_size": to_dots(tpl["font_size"], dpi),
+        "media_type": tpl.get("media_type", "gap"),
+        "darkness": tpl.get("darkness", 15),
+        "print_speed": tpl.get("print_speed", 4),
+        "print_mode": tpl.get("print_mode", "tear_off"),
+        "orientation": tpl.get("orientation", "normal"),
     }
 
 def build_zpl(text, tpl):
+    lines = text.split("\\n")
+    font_size = tpl["font_size"]
+    line_height = int(font_size * 1.3)
+
+    fields = []
+    for i, line in enumerate(lines):
+        y = tpl["y"] + i * line_height
+        fields.append(f"^FO{tpl['x']},{y}^A0N,{font_size},{font_size}^FD{line}^FS")
+    body = "\n".join(fields)
+
+    media_cmd = MEDIA_TYPE_MAP.get(tpl["media_type"], "^MNY")
+    mode_cmd = PRINT_MODE_MAP.get(tpl["print_mode"], "^MMT")
+    orient_cmd = ORIENTATION_MAP.get(tpl["orientation"], "^PON")
+
     return f"""^XA
 ^PW{tpl['width_dots']}
 ^LL{tpl['height_dots']}
-^FO{tpl['x']},{tpl['y']}
-^A0N,{tpl['font_size']},{tpl['font_size']}
-^FD{text}^FS
+{media_cmd}
+^MD{tpl['darkness']}
+^PR{tpl['print_speed']}
+{mode_cmd}
+{orient_cmd}
+{body}
 ^XZ"""
 
 def send(zpl, printer=PRINTER):
@@ -63,3 +101,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -4,12 +4,5 @@
   "height": {"value": 6, "unit": "in"},
   "x": {"value": 30, "unit": "dots"},
   "y": {"value": 30, "unit": "dots"},
-  "font_size": {"value": 80, "unit": "dots"},
-
-  "media_type": "gap",
-  "darkness": 15,
-  "print_speed": 2,
-  "print_mode": "tear_off",
-  "orientation": "normal"
+  "font_size": {"value": 40, "unit": "dots"}
 }
-
