@@ -1,0 +1,15 @@
+{
+  "dpi": 203,
+  "width": {"value": 50, "unit": "mm"},
+  "height": {"value": 30, "unit": "mm"},
+  "x": {"value": 3, "unit": "mm"},
+  "y": {"value": 2, "unit": "mm"},
+  "font_size": {"value": 4, "unit": "mm"},
+
+  "media_type": "gap",
+  "darkness": 15,
+  "print_speed": 2,
+  "print_mode": "tear_off",
+  "orientation": "normal"
+}
+
