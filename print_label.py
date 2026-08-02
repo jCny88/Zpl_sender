@@ -77,16 +77,17 @@ def build_zpl(text, tpl):
     line_height = int(font_size * 1.3)
     rotation = tpl.get("rotation", "normal")
     rot_letter = ROTATION_LETTER.get(rotation, "N")
-
-    # stacking axis depends on rotation direction
+    
     if rotation == "normal":
-        dx, dy = 0, line_height        # stack downward
+        dx, dy = 0, line_height
     elif rotation == "R":
-        dx, dy = line_height, 0        # stack rightward
+        lines = list(reversed(lines))
+        dx, dy = -line_height, 0
     elif rotation == "B":
-        dx, dy = -line_height, 0       # stack leftward
+        dx, dy = line_height, 0
     elif rotation == "I":
-        dx, dy = 0, -line_height       # stack upward
+        lines = list(reversed(lines))
+        dx, dy = 0, -line_height
     else:
         dx, dy = 0, line_height
 

@@ -2,7 +2,7 @@
   "dpi": 203,
   "width": {"value": 57, "unit": "mm"},
   "height": {"value": 25, "unit": "mm"},
-  "x": {"value": 25, "unit": "mm"},
+  "x": {"value": 0.5, "unit": "mm"},
   "y": {"value": 0.5, "unit": "mm"},
   "font_size": {"value": 6, "unit": "mm"},
   "font": "0",
