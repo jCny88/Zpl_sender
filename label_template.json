@@ -1,15 +1,17 @@
 {
   "dpi": 203,
   "width": {"value": 57, "unit": "mm"},
-  "height": {"value": 8, "unit": "mm"},
-  "x": {"value": 1, "unit": "mm"},
+  "height": {"value": 25, "unit": "mm"},
+  "x": {"value": 25, "unit": "mm"},
   "y": {"value": 0.5, "unit": "mm"},
   "font_size": {"value": 6, "unit": "mm"},
-
+  "font": "0",
   "media_type": "continuous",
   "darkness": 15,
   "print_speed": 2,
   "print_mode": "tear_off",
-  "orientation": "inverted"
+  "orientation": "normal",
+  "rotation": "R"
 }
+
 

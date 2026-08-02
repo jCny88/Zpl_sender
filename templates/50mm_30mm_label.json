@@ -4,7 +4,7 @@
   "height": {"value": 30, "unit": "mm"},
   "x": {"value": 3, "unit": "mm"},
   "y": {"value": 2, "unit": "mm"},
-  "font_size": {"value": 4, "unit": "mm"},
+  "font_size": {"value": 6, "unit": "mm"},
 
   "media_type": "gap",
   "darkness": 15,

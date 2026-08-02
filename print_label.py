@@ -27,6 +27,13 @@ ORIENTATION_MAP = {
     "inverted": "^POI",
 }
 
+ROTATION_MAP = {
+    "normal": "^FWN",
+    "R": "^FWR",
+    "I": "^FWI",
+    "B": "^FWB",
+}
+
 def to_dots(field, dpi):
     value = field["value"]
     unit = field["unit"].lower()
@@ -47,22 +54,47 @@ def load_template(path="label_template.json"):
         "x": to_dots(tpl["x"], dpi),
         "y": to_dots(tpl["y"], dpi),
         "font_size": to_dots(tpl["font_size"], dpi),
+        "font": tpl.get("font", "0"),
         "media_type": tpl.get("media_type", "gap"),
         "darkness": tpl.get("darkness", 15),
         "print_speed": tpl.get("print_speed", 4),
         "print_mode": tpl.get("print_mode", "tear_off"),
         "orientation": tpl.get("orientation", "normal"),
+        "rotation": tpl.get("rotation", "normal"),
     }
+
+ROTATION_LETTER = {
+    "normal": "N",
+    "R": "R",
+    "I": "I",
+    "B": "B",
+}
 
 def build_zpl(text, tpl):
     lines = text.split("\\n")
+    font = tpl.get("font", "0")
     font_size = tpl["font_size"]
     line_height = int(font_size * 1.3)
+    rotation = tpl.get("rotation", "normal")
+    rot_letter = ROTATION_LETTER.get(rotation, "N")
+
+    # stacking axis depends on rotation direction
+    if rotation == "normal":
+        dx, dy = 0, line_height        # stack downward
+    elif rotation == "R":
+        dx, dy = line_height, 0        # stack rightward
+    elif rotation == "B":
+        dx, dy = -line_height, 0       # stack leftward
+    elif rotation == "I":
+        dx, dy = 0, -line_height       # stack upward
+    else:
+        dx, dy = 0, line_height
 
     fields = []
     for i, line in enumerate(lines):
-        y = tpl["y"] + i * line_height
-        fields.append(f"^FO{tpl['x']},{y}^A0N,{font_size},{font_size}^FD{line}^FS")
+        x = tpl["x"] + i * dx
+        y = tpl["y"] + i * dy
+        fields.append(f"^FO{x},{y}^A{font}{rot_letter},{font_size},{font_size}^FD{line}^FS")
     body = "\n".join(fields)
 
     media_cmd = MEDIA_TYPE_MAP.get(tpl["media_type"], "^MNY")
