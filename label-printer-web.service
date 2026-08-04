@@ -1,0 +1,12 @@
+[Unit]
+Description=Label Printer Web UI
+After=network.target cups.service
+
+[Service]
+WorkingDirectory=/home/jc/02-Projects/03-IT_Projects/01-Git/Zpl_sender
+ExecStart=/usr/bin/python3 /home/jc/02-Projects/03-IT_Projects/01-Git/Zpl_sender/app.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

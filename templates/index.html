@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Label Printer</title>
+<style>
+  body {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    font-family: -apple-system, sans-serif;
+    max-width: 480px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  h1 { font-size: 1.3rem; margin-bottom: 20px; }
+  label { display: block; margin-top: 16px; margin-bottom: 6px; font-size: 0.9rem; color: #aaa; }
+  select, textarea, button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  textarea { resize: vertical; min-height: 100px; font-family: monospace; }
+  button {
+    margin-top: 20px;
+    background: #3a6df0;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  button:hover { background: #4b7bff; }
+  .msg { margin-top: 16px; padding: 10px; border-radius: 6px; font-size: 0.9rem; }
+  .ok { background: #1f3a24; color: #7fdb8a; }
+  .err { background: #3a1f1f; color: #e08a8a; }
+</style>
+</head>
+<body>
+  <h1>🖨 Label Printer</h1>
+
+  <form method="POST">
+    <label for="template">Template</label>
+    <select name="template" id="template">
+      {% for t in templates %}
+        <option value="{{ t }}" {% if t == selected_template %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+
+    <label for="text">Label text</label>
+    <textarea name="text" id="text" placeholder="Line one&#10;Line two">{{ text_value }}</textarea>
+
+    <button type="submit">Print</button>
+  </form>
+
+  {% if message %}
+    <div class="msg ok">{{ message }}</div>
+  {% endif %}
+  {% if error %}
+    <div class="msg err">{{ error }}</div>
+  {% endif %}
+</body>
+</html>
