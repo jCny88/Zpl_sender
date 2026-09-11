@@ -8,3 +8,5 @@ node_modules/
 config.env
 node_modules/
 *.log
+data/*
+/__pycache__/*

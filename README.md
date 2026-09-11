@@ -2,7 +2,48 @@
 
 Python script to print labels on a Zebra ZD220 (203 dpi) from a Raspberry Pi, via CUPS raw printing.
 
-## Requirements
+## Windows printing
+
+For the installed `ZDesigner ZD621-203dpi ZPL` queue, send the ZPL file directly to
+the Windows spooler as a raw job:
+
+```powershell
+python print_zpl.py
+```
+
+The default input is `data/labels.zpl`. To print another file or select another
+queue:
+
+```powershell
+python print_zpl.py path\to\label.zpl -p "ZDesigner ZD621-203dpi ZPL"
+```
+
+This preserves the ZPL commands and does not require CUPS or `lp`.
+
+## Create ZPL from CSV
+
+`csv_to_zpl.py` reads one barcode value per CSV row and creates one Code 128
+label per value. Values are read as text so leading zeros are preserved.
+
+Example `barcodes.csv`:
+
+```csv
+533891103935345332
+533891103935345349
+```
+
+Generate ZPL using dimensions in printer dots:
+
+```powershell
+python csv_to_zpl.py barcodes.csv data\labels.zpl --label-height 320
+```
+
+The first CSV column is used by default. Use `--skip-header` for a header row,
+`--column 1` for the second column, and `--x`/`--y` to change the barcode position.
+Use `--barcode-height 178` when an explicit barcode height is needed; otherwise
+the barcode height field is left empty in the ZPL.
+
+## Raspberry Pi / CUPS requirements
 
 - Printer set up in CUPS and reachable via `lp`
 - Confirm the exact CUPS printer name:
