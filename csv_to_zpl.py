@@ -58,18 +58,31 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Create Code 128 ZPL labels from one CSV column"
     )
-    parser.add_argument("csv_file", type=Path, help="Input CSV file")
-    parser.add_argument("output_file", type=Path, help="Output ZPL file")
+    parser.add_argument(
+        "csv_file",
+        type=Path,
+        nargs="?",
+        default=Path("barcodes.csv"),
+        help="Input CSV file (default: barcodes.csv)",
+    )
+    parser.add_argument(
+        "output_file",
+        type=Path,
+        nargs="?",
+        default=Path("labels.zpl"),
+        help="Output ZPL file (default: labels.zpl)",
+    )
     parser.add_argument(
         "--label-height",
         type=int,
-        required=True,
-        help="Label height in printer dots, for example 320",
+        default=400,
+        help="Label height in printer dots (default: 400)",
     )
     parser.add_argument(
         "--barcode-height",
         type=int,
-        help="Optional barcode height in printer dots; omitted leaves the ZPL field empty",
+        default=300,
+        help="Barcode height in printer dots (default: 300)",
     )
     parser.add_argument(
         "--column",
@@ -81,13 +94,13 @@ def main() -> None:
         action="store_true",
         help="Skip the first CSV row",
     )
-    parser.add_argument("--label-width", type=int, default=831)
-    parser.add_argument("--x", type=int, default=72)
+    parser.add_argument("--label-width", type=int, default=812)
+    parser.add_argument("--x", type=int, default=50)
     parser.add_argument(
         "--y",
         type=int,
-        default=36,
-        help="Barcode top position in dots; default matches a 30 mm label",
+        default=350,
+        help="Barcode top position in dots for a 4 inch continuous label",
     )
     args = parser.parse_args()
 

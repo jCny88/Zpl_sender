@@ -100,8 +100,8 @@ def main() -> None:
         "file",
         nargs="?",
         type=Path,
-        default=Path("data/labels.zpl"),
-        help="ZPL file to print (default: data/labels.zpl)",
+        default=Path("labels.zpl"),
+        help="ZPL file to print (default: labels.zpl)",
     )
     parser.add_argument("-p", "--printer", default=DEFAULT_PRINTER)
     args = parser.parse_args()
