@@ -26,9 +26,9 @@ def build_label(
         f"^PW{label_width}\n"
         f"^LL{label_height}\n"
         "^LS0\n"
-        f"^BY5,3{f',{barcode_height}' if barcode_height is not None else ''}"
-        f"^FT{x},{y}^BCN,,Y,N\n"
-        f"^FD>;{barcode}^FS\n"
+        f"^BY2,3{f',{barcode_height}' if barcode_height is not None else ''}"
+        f"^FT{x},{y}^BCN,,Y,N,A\n"
+        f"^FD{barcode}^FS\n"
         "^PQ1,1,1,Y\n"
         "^XZ\n"
     )
@@ -81,8 +81,8 @@ def main() -> None:
     parser.add_argument(
         "--barcode-height",
         type=int,
-        default=300,
-        help="Barcode height in printer dots (default: 300)",
+        default=122,
+        help="Barcode height in printer dots (default: 122)",
     )
     parser.add_argument(
         "--column",

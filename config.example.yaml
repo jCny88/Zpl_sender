@@ -1,0 +1,8 @@
+# Set dry_run: true to preview the request without sending it.
+zpl_file: se-outbound-labeller.prn
+labeler_ip: 6
+labeler_name: OLPNLabeler
+labeler_number: 1
+exotec_id: testtest
+dry_run: false
+drop_header_lines: 2

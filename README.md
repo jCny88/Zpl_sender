@@ -20,6 +20,30 @@ python print_zpl.py path\to\label.zpl -p "ZDesigner ZD621-203dpi ZPL"
 
 This preserves the ZPL commands and does not require CUPS or `lp`.
 
+## Send ZPL to the labeler REST API
+
+`send_zpl.py` reads ZPL and labeler settings from one YAML configuration file.
+Install its dependencies once:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+Copy and edit `config.example.yaml`, then invoke the script with only that
+configuration path:
+
+```powershell
+python send_zpl.py config.example.yaml
+```
+
+Set `dry_run: true` to print the target URL and request JSON without sending
+anything; set it to `false` to send the request. A relative `zpl_file` path is
+resolved from the directory containing the YAML file; omitting it uses
+`labels.zpl` from that directory. The script uses the configured labeler fields
+and `exotec_id` to build the request. Use
+`drop_header_lines` to remove that many leading lines from the ZPL file before
+sending; its default is `0` and it must leave at least one line of label data.
+
 ## Create ZPL from CSV
 
 `csv_to_zpl.py` reads one barcode value per CSV row and creates one Code 128
@@ -193,4 +217,3 @@ printf "^XA^FO50,50^A0N,40,40^FDtest^FS^XZ" | lp -d Zebra_Technologies_ZTC_ZD220
 - Per-field font/rotation control (not just label-level orientation)
 - Custom downloaded fonts (TTF converted to Zebra format via `~DU`/`^CW`)
 - Multi-field templates (e.g. name + date + barcode) instead of single text blob
-
